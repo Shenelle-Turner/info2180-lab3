@@ -44,3 +44,15 @@ function checkWinner() {
         return false;
     });
 }
+
+const resetButton = document.querySelector(".btn");
+
+resetButton.addEventListener("click", () => {
+    squares.forEach(square => {
+        square.textContent = "";
+        square.classList.remove("X", "O", "hover");
+    });
+    statusDiv.textContent = "Move your mouse over a square and click to play an X or an O.";
+    statusDiv.classList.remove("you-won");
+    currentPlayer = "X";
+});
