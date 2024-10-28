@@ -1,14 +1,14 @@
 /**************************************************************/
-//             EXERCISE 1 - - Layout the board                //
+//             EXERCISE 1 - Layout the board                  //
 /**************************************************************/
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     // Get all the divs inside the board
-    const squares = document.querySelectorAll('#board > div');
+    const squares = document.querySelectorAll("#board > div");
     
     // Add the 'square' class to each div
     squares.forEach(square => {
-        square.classList.add('square');
+        square.classList.add("square");
     });
 });
 
@@ -16,19 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
 //    EXERCISE 2  - Add an X or O to a square when clicked    //
 /**************************************************************/
 
-let currentPlayer = 'X';
-
-document.addEventListener('DOMContentLoaded', () => {
-    const squares = document.querySelectorAll('#board > div');
-    
-    squares.forEach(square => {
-        square.addEventListener('click', () => {
-            if (!square.textContent) {
-                square.textContent = currentPlayer;
-                square.classList.add(currentPlayer);
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            }
-        });
+let currentPlayer = "X";
+squares.forEach((square) => {
+    square.addEventListener("click", () => {
+        if (!square.textContent) {
+            square.textContent = currentPlayer;
+            square.classList.add(currentPlayer);
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+        }
     });
 });
 
@@ -36,17 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
 //    EXERCISE 3 - Change the style when you move your mouse over a square    //
 /******************************************************************************/
 
-document.addEventListener('DOMContentLoaded', () => {
-    const squares = document.querySelectorAll('#board > div');
-    
-    squares.forEach(square => {
-        square.addEventListener('mouseenter', () => {
-            square.classList.add('hover');
-        });
-        
-        square.addEventListener('mouseleave', () => {
-            square.classList.remove('hover');
-        });
+squares.forEach((square) => {
+    square.addEventListener("mouseover", () => {
+        if (!square.textContent) square.classList.add("hover");
+    });
+    square.addEventListener("mouseout", () => {
+        square.classList.remove("hover");
     });
 });
 
@@ -54,82 +44,57 @@ document.addEventListener('DOMContentLoaded', () => {
 //    EXERCISE 4  - Check for the winner and update the status      //
 /********************************************************************/
 
+const statusDiv = document.getElementById("status");
+
 function checkWinner() {
-    const squares = document.querySelectorAll('#board > div');
     const winningCombinations = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-        [0, 4, 8], [2, 4, 6]             // Diagonals
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
     ];
-    
-    for (const combination of winningCombinations) {
-        const [a, b, c] = combination;
-        if (squares[a].textContent && 
-            squares[a].textContent === squares[b].textContent && 
-            squares[a].textContent === squares[c].textContent) {
-            
-            const winner = squares[a].textContent;
-            const status = document.getElementById('status');
-            status.textContent = 'Congratulations! ${currentPlayer} is the Winner!';
-            status.classList.add('you-won');
+
+    return winningCombinations.some((combo) => {
+        const [a, b, c] = combo;
+        if (squares[a].textContent && squares[a].textContent === squares[b].textContent && squares[a].textContent === squares[c].textContent) {
+            statusDiv.textContent = `Congratulations! ${squares[a].textContent} is the Winner!`;
+            statusDiv.classList.add("you-won");
             return true;
         }
-    }
-    return false;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const squares = document.querySelectorAll('#board > div');
-    
-    squares.forEach(square => {
-        square.addEventListener('click', () => {
-            if (!square.textContent) {
-                square.textContent = currentPlayer;
-                square.classList.add(currentPlayer);
-                if (!checkWinner()) {
-                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                }
-            }
-        });
+        return false;
     });
-});
+}
 
 /**************************************************************/
 //            EXERCISE 5 - Restart the game                   //
 /**************************************************************/
 
-document.addEventListener('DOMContentLoaded', () => {
-    const newGameButton = document.querySelector('.btn');
-    const status = document.getElementById('status');
-    const squares = document.querySelectorAll('#board > div');
-    
-    newGameButton.addEventListener('click', () => {
-        squares.forEach(square => {
-            square.textContent = '';
-            square.classList.remove('X', 'O');
-        });
-        status.textContent = 'Move your mouse over a square and click to play an X or an O.';
-        status.classList.remove('you-won');
-        currentPlayer = 'X';
+const resetButton = document.querySelector(".btn");
+
+resetButton.addEventListener("click", () => {
+    squares.forEach(square => {
+        square.textContent = "";
+        square.classList.remove("X", "O", "hover");
     });
+    statusDiv.textContent = "Move your mouse over a square and click to play an X or an O.";
+    statusDiv.classList.remove("you-won");
+    currentPlayer = "X";
 });
 
 /**************************************************************/
 //            EXERCISE 6 - Disallow Cheating                  //
 /**************************************************************/
 
-document.addEventListener('DOMContentLoaded', () => {
-    const squares = document.querySelectorAll('#board > div');
-    
-    squares.forEach(square => {
-        square.addEventListener('click', () => {
-            if (!square.textContent && !checkWinner()) {
-                square.textContent = currentPlayer;
-                square.classList.add(currentPlayer);
-                if (!checkWinner()) {
-                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+square.addEventListener("click", () => {
+    if (gameActive && !square.textContent) {
+        let currentPlayer = "X";
+        squares.forEach((square) => {
+            square.addEventListener("click", () => {
+                if (!square.textContent) {
+                    square.textContent = currentPlayer;
+                    square.classList.add(currentPlayer);
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
                 }
-            }
+            });
         });
-    });
+    }
 });
