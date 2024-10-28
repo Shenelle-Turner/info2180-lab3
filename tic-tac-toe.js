@@ -1,3 +1,7 @@
+/**************************************************************/
+//             EXERCISE 1 - - Layout the board                //
+/**************************************************************/
+
 document.addEventListener('DOMContentLoaded', () => {
     // Get all the divs inside the board
     const squares = document.querySelectorAll('#board > div');
@@ -7,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
         square.classList.add('square');
     });
 });
+
+/**************************************************************/
+//    EXERCISE 2  - Add an X or O to a square when clicked    //
+/**************************************************************/
 
 let currentPlayer = 'X';
 
@@ -24,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/******************************************************************************/
+//    EXERCISE 3 - Change the style when you move your mouse over a square    //
+/******************************************************************************/
+
 document.addEventListener('DOMContentLoaded', () => {
     const squares = document.querySelectorAll('#board > div');
     
@@ -37,6 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+/********************************************************************/
+//    EXERCISE 4  - Check for the winner and update the status      //
+/********************************************************************/
 
 function checkWinner() {
     const squares = document.querySelectorAll('#board > div');
@@ -78,6 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**************************************************************/
+//            EXERCISE 5 - Restart the game                   //
+/**************************************************************/
+
 document.addEventListener('DOMContentLoaded', () => {
     const newGameButton = document.querySelector('.btn');
     const status = document.getElementById('status');
@@ -93,6 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPlayer = 'X';
     });
 });
+
+/**************************************************************/
+//            EXERCISE 6 - Disallow Cheating                  //
+/**************************************************************/
 
 document.addEventListener('DOMContentLoaded', () => {
     const squares = document.querySelectorAll('#board > div');
