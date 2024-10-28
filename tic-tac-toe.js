@@ -56,3 +56,9 @@ resetButton.addEventListener("click", () => {
     statusDiv.classList.remove("you-won");
     currentPlayer = "X";
 });
+
+square.addEventListener("click", () => {
+    if (gameActive && !square.textContent) {
+        // Existing code for marking square
+    }
+});
