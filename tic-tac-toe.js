@@ -1,18 +1,26 @@
-// Ensure DOM is fully loaded before running scripts
+// Author: 620161664
+// Info2180 Lab 3
+// Date: October 27, 2024
+
+
+
+// Ensures DOM is fully loaded before running scripts
 document.addEventListener("DOMContentLoaded", () => {
-    // Exercise 1: Layout the board
+    
+    /***** Exercise 1 - Layout the board *****/
     const squares = document.querySelectorAll("#board > div");
     squares.forEach(square => {
-      square.classList.add("square");
+        square.classList.add("square");
     });
-  
+    
     // Variables to keep track of the game state
     let currentPlayer = "X";
-    let gameBoard = Array(9).fill(null); // Initialize a 3x3 grid with null values to track game state
+    let gameBoard = Array(9).fill(null); // Initializes a 3x3 grid with null values to track game state
     const statusDiv = document.getElementById("status");
     const newGameButton = document.querySelector(".btn");
   
-    // Helper function to check if a player has won
+    /***** Exercise 4 - Checks for the winner and updates the status *****/
+    // Helper function that checks if a player has won
     function checkWinner() {
       const winningCombos = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -29,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return null;
     }
   
-    // Helper function to update the status message
+    // Helper function that updates the status message
     function updateStatus(winner) {
       if (winner) {
         statusDiv.textContent = `Congratulations! ${winner} is the Winner!`;
@@ -40,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   
-    // Exercise 2: Add X or O to a square when clicked
+    /***** Exercise 2: Adds X or O to a square when clicked *****/
     squares.forEach((square, index) => {
       square.addEventListener("click", () => {
-        if (!gameBoard[index]) { // Exercise 6: Disallow changing values on filled squares
+        if (!gameBoard[index]) { /***** Exercise 6: Disallows changing values on filled squares *****/
           gameBoard[index] = currentPlayer;
           square.textContent = currentPlayer;
           square.classList.add(currentPlayer);
@@ -52,12 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
           if (winner) {
             updateStatus(winner);
           } else {
-            currentPlayer = currentPlayer === "X" ? "O" : "X"; // Switch player
+            currentPlayer = currentPlayer === "X" ? "O" : "X"; // Switches player
           }
         }
       });
   
-      // Exercise 3: Change style when hovering over a square
+      /***** Exercise 3: Changes style when hovering over a square *****/
       square.addEventListener("mouseenter", () => {
         if (!gameBoard[index]) {
           square.classList.add("hover");
@@ -68,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   
-    // Exercise 5: Restart the game when clicking "New Game"
+    /***** Exercise 5: Restarts the game when clicking "New Game" *****/
     newGameButton.addEventListener("click", () => {
       gameBoard.fill(null);
       squares.forEach(square => {
