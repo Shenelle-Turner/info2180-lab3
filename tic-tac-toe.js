@@ -16,3 +16,11 @@ squares.forEach((square) => {
     });
 });
 
+squares.forEach((square) => {
+    square.addEventListener("mouseover", () => {
+        if (!square.textContent) square.classList.add("hover");
+    });
+    square.addEventListener("mouseout", () => {
+        square.classList.remove("hover");
+    });
+});
